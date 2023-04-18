@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: openpgp
+  role_name: gnupg2
   author: Daniel Buøy-Vehn
-  description: "Ansible role to manage a local openpgp installation on a host."
+  description: "Ansible role to manage a local gnupg2 installation on a host."
   galaxy_tags: []
   license: BSD
   min_ansible_version: '2.4'
