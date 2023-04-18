@@ -1,0 +1,7 @@
+---
+# handlers file for openpgp
+- name: Kill_current_gpg_agent
+  ansible.builtin.command: gpgconf --kill gpg-agent
+  register: __kill_gpg_agent
+  changed_when: __kill_gpg_agent.rc == 0
+  become: false

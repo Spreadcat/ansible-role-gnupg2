@@ -1,0 +1,22 @@
+---
+# Install tasks for this roles
+- name: Install | Update apt cache.
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+  when: ansible_os_family|lower == 'debian'
+
+- name: Install | Manage packages.
+  become: true
+  ansible.builtin.package:
+    name: "{{ openpgp_packages }}"
+    state: present
+
+- name: Install | Manage directories.
+  ansible.builtin.file:
+    state: directory
+    path: "{{ openpgp_config_file_path | dirname }}"
+    owner: "{{ openpgp_owner }}"
+    group: "{{ openpgp_group }}"
+    mode: "0700"

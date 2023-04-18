@@ -1,0 +1,9 @@
+---
+# defaults file for openpgp
+
+# Default packages
+openpgp_packages:
+  - gnupg2
+  - pinentry
+  - pinentry-qt
+  - pinentry-curses

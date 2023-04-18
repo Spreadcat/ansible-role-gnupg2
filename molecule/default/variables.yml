@@ -1,0 +1,31 @@
+---
+# Variables for this scenario
+#
+openpgp_owner: ansible
+openpgp_group: ansible
+openpgp_config_file_path: "/home/ansible/.gnupg/gpg.conf"
+
+openpgp_local_keys:
+  - id: DCCAEED0333481B7
+    trust_level: 5
+    content: |
+      -----BEGIN PGP PRIVATE KEY BLOCK-----
+
+      lFgEY+/W7hYJKwYBBAHaRw8BAQdAB9dDBYS3GSBKGvPjIQyFT74bJEg3M2Mb8twl
+      y8jW188AAP0cmof3imejKUt8dqbmMXwXGqIxEEGxgyO4Nz1DrWH3Rw7LtAdVU0VS
+      X0lEiJkEExYKAEEWIQRNBNvI21RJZhRC6APcyu7QMzSBtwUCY+/W7gIbAwUJA8Jn
+      AAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRDcyu7QMzSBtwY1AP9jCPJ9
+      1ZitE+aMD8pp773r43SU7G2VAokXhochYOh6NwEArmz2KpmSy6f1uVf8sutwIWg9
+      12SUTvJjhgyo8a6cLQKcXQRj79buEgorBgEEAZdVAQUBAQdAIN+uOb7FsDgK2G0+
+      E+yYTkDWTH/GCsmrpybZnrgOkEsDAQgHAAD/WgBwLATUmvzMMzZKaoClCyLgWzk6
+      VxFBRg43+3dcH8gNNYh4BBgWCgAgFiEETQTbyNtUSWYUQugD3Mru0DM0gbcFAmPv
+      1u4CGwwACgkQ3Mru0DM0gbcEbgEAugTq9ATuFrZN+zvFQGfYUtVH+JSsmzxzHU9w
+      JqF2y20A/0B7Tb6Zqaqhgdc0zpNni4MDXWFuVtWT0OdgeyNEewIE
+      =ewOk
+      -----END PGP PRIVATE KEY BLOCK-----
+
+openpgp_public_keys:
+  - id: 46A2AEC8E5282552
+    keyserver: keyserver.ubuntu.com
+  - id: 93989FE1C35F8AE5
+    keyserver: keyserver.ubuntu.com

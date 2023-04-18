@@ -1,0 +1,13 @@
+---
+- name: Config - Add local key | Import local key.
+  ansible.builtin.shell:
+    cmd: "set -o pipefail && echo \"{{ local_key.content }}\" | gpg2 --import --batch"
+  register: __add_local_key
+  changed_when: __add_local_key.rc != 0
+  failed_when: __add_local_key.rc != 0
+  args:
+    executable: /bin/bash
+  when:
+    - local_key.id not in _gpg2_list_secret_keys.stdout
+    - local_key.id not in _gpg2_list_keys.stdout
+...

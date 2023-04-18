@@ -1,0 +1,9 @@
+---
+- name: Config remove public key | Remove key from keyring.
+  ansible.builtin.command:
+    cmd: "gpg2 --batch --yes --delete-keys {{ public_key.id }}"
+  register: __gpg2_delete_keys
+  failed_when: __gpg2_delete_keys.rc != 0
+  changed_when: __gpg2_delete_keys.rc == 0
+  when:
+    - public_key.id in _gpg2_list_keys.stdout

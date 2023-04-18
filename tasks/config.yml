@@ -1,0 +1,73 @@
+---
+# Config tasks for this role
+- name: Config | Configure openpgp.
+  ansible.builtin.template:
+    src: "{{ openpgp_config_file_source }}"
+    dest: "{{ openpgp_config_file_path }}"
+    owner: "{{ openpgp_owner }}"
+    group: "{{ openpgp_group }}"
+    mode: "0400"
+    force: false
+
+- name: Config | Configure gpg-agent.
+  ansible.builtin.template:
+    src: "{{ openpgp_agent_config_file_source }}"
+    dest: "{{ openpgp_agent_config_file_path }}"
+    owner: "{{ openpgp_owner }}"
+    group: "{{ openpgp_group }}"
+    mode: "0400"
+    force: true
+  notify: Kill_current_gpg_agent
+
+- name: Config | List local public keys.
+  ansible.builtin.command:
+    cmd: gpg2 --list-keys
+  run_once: true
+  changed_when: false
+  register: _gpg2_list_keys
+
+- name: Config | List local secret keys.
+  ansible.builtin.command: gpg2 --list-secret-keys
+  run_once: true
+  changed_when: false
+  register: _gpg2_list_secret_keys
+
+- name: Config | Add local keys.
+  ansible.builtin.include_tasks: config.add_local_keys.yml
+  loop: "{{ openpgp_local_keys }}"
+  no_log: true
+  loop_control:
+    loop_var: local_key
+  when:
+    - local_key.content is defined
+    - (local_key.state is not defined or local_key.state != 'absent')
+
+- name: Config | Set trust level for local keys.
+  ansible.builtin.include_tasks: config.trust_local_keys.yml
+  no_log: true
+  loop: "{{ openpgp_local_keys }}"
+  loop_control:
+    loop_var: local_key
+  when:
+    - local_key.trust_level is defined
+    - local_key.id is defined
+    - (local_key.state is not defined or local_key.state != 'absent')
+
+- name: Config | Fetch public keys from keyserver.
+  ansible.builtin.include_tasks: config.fetch_public_key.yml
+  loop: "{{ openpgp_public_keys }}"
+  loop_control:
+    loop_var: public_key
+  when:
+    - public_key.id is defined
+    - (public_key.state is not defined or public_key.state != 'absent')
+
+- name: Config | Remove public keys from local keyring.
+  ansible.builtin.include_tasks: config.remove_public_key.yml
+  loop: "{{ openpgp_public_keys }}"
+  loop_control:
+    loop_var: public_key
+  when:
+    - public_key.id is defined
+    - public_key.state is defined
+    - public_key.state == 'absent'

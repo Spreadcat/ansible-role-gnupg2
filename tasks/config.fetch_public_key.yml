@@ -1,0 +1,20 @@
+---
+- name: Config - Fetch public keys | Add keyserver url to gpg.conf.
+  ansible.builtin.lineinfile:
+    path: "{{ openpgp_config_file_path }}"
+    regexp: "^keyserver "
+    insertafter: "^#keyserver "
+    line: "keyserver {{ public_key.keyserver }}"
+    owner: "{{ openpgp_owner }}"
+    group: "{{ openpgp_group }}"
+    mode: "0400"
+  when:
+    - public_key.keyserver is defined
+    - public_key.id not in _gpg2_list_keys.stdout
+
+- name: Config - Fetch public keys | Fetch public key from keyserver.
+  ansible.builtin.command:
+    cmd: "gpg2 --receive-keys {{ public_key.id }}"
+  register: __fetch_public_key
+  changed_when: __fetch_public_key.rc != 0
+  when: public_key.id not in _gpg2_list_keys.stdout

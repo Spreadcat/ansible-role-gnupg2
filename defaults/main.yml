@@ -1,0 +1,75 @@
+---
+# Sets the default owner for all files.
+#
+# Example:
+#   opengpg_owner: ansible
+#
+# doca tag:other
+openpgp_owner: "{{ lookup('env', 'USER') }}"
+
+# Default group for all files.
+#
+# Example:
+#   opengpg_group: ansible
+#
+# doca tag:other
+openpgp_group: "{{ lookup('env', 'USER') }}"
+
+# Sets the default location for the configuration file.
+#
+# Example:
+#   openpgp_config_file_path: "~/.gnupg/gpg.conf"
+#
+# doca tag:other
+openpgp_config_file_path: "{{ lookup('env', 'HOME') }}/.gnupg/gpg.conf"
+
+# Default template for the gpg configuration.
+#
+# Example:
+#   openpgp_config_file_source: gpg.conf.j2
+#
+# doca tag:other
+openpgp_config_file_source: gpg.conf.j2
+
+# Sets the key id for the default key to be used.
+#
+# Example:
+#   opengpg_default_key: "99288377466"
+#
+# doca tag:role
+opengpg_default_key: ""
+
+# Set the default template for gpg-agent configuration.
+#
+# Example:
+#   openpgp_agent_config_file_source: gpg-agent.conf.j2
+#
+# doca tag:other
+openpgp_agent_config_file_source: gpg-agent.conf.j2
+
+# Sets the default file path for the GPG agent.
+#
+# Example:
+#   openpgp_agent_config_file_path: "~/.gnupg/gpg-agent.conf"
+#
+# doca tag:other
+openpgp_agent_config_file_path: "{{ openpgp_config_file_path | dirname }}/pgp-agent.conf"
+
+# List of local keys with key id and content.
+#
+# Example:
+#   openpgp_local_keys:
+#     - id: foobar
+#       content: foobarfoobarfoobarfoobar
+#       trust_level: 1-5
+openpgp_local_keys: []
+
+# List of public keys to import from a keyserver.
+#
+# Example:
+#   openpgp_public_keys:
+#     - id: foobar
+#     - id: barfoo
+#
+# doca tag:role
+openpgp_public_keys: []

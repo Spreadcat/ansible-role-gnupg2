@@ -1,0 +1,6 @@
+---
+# defaults file for openpgp
+
+# Default packages
+openpgp_packages:
+  - gnupg2
