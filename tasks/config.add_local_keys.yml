@@ -1,5 +1,5 @@
 ---
-- name: Config - Add local key | Import local key.
+- name: Config_add_local_key | Import local key.
   ansible.builtin.shell:
     cmd: "set -o pipefail && echo \"{{ local_key.content }}\" | gpg2 --import --batch"
   register: __add_local_key

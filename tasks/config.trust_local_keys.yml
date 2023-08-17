@@ -1,5 +1,5 @@
 ---
-- name: Config - Trust local keys | List all keys trust levels.
+- name: Config_trust_local_keys | List all keys trust levels.
   ansible.builtin.command:
     cmd: gpg2 --export-ownertrust
   register: _gpg2_export_ownertrust
@@ -7,7 +7,7 @@
   failed_when: _gpg2_export_ownertrust.rc != 0
   run_once: true
 
-- name: Config - Trust local keys | Set trust level key.
+- name: Config_trust_local_keys | Set trust level key.
   ansible.builtin.shell:
     cmd: >-
       set -o pipefail && echo -e \"{{ local_key.trust_level }}\ny\n\"
