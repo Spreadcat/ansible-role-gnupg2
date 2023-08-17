@@ -4,7 +4,7 @@ Ansible role for manging a local openpgp instance on a host.
 
 ## Requirements
 
-* None
+* The role requires `gathered_facts: true` to be set.
 
 ## Role Variables
 
