@@ -3,7 +3,7 @@
   ansible.builtin.command:
     cmd: gpg2 --export-ownertrust
   register: _gpg2_export_ownertrust
-  changed_when: _gpg2_export_ownertrust.rc == 0
+  changed_when: false
   failed_when: _gpg2_export_ownertrust.rc != 0
   run_once: true
 
@@ -17,6 +17,7 @@
   register: __trust_keys
   changed_when: __trust_keys.rc == 0
   when:
+    - _gpg2_export_ownertrust['stdout_lines'] | length > 2
     - local_key.trust_level is defined
     - local_key.trust_level
     - local_key.id + ':' + (local_key.trust_level|int + 1) | string + ':' not in _gpg2_export_ownertrust.stdout

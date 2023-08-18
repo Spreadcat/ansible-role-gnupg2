@@ -6,6 +6,6 @@
     - name: "Converge | Include variable file."
       ansible.builtin.include_vars: variables.yml
 
-    - name: "Converge | Include spreadcat.openpgp."
+    - name: "Converge | Include spreadcat.gnupg2."
       ansible.builtin.include_role:
-        name: "spreadcat.openpgp"
+        name: "spreadcat.gnupg2"
